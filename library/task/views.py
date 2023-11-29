@@ -2,11 +2,16 @@ from .models import Book
 from .serializers import BookSerializer,UserSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from django.http import HttpResponse
 
 from rest_framework import generics,status
 from rest_framework.response import Response
 from rest_framework.views import APIView 
 from rest_framework.permissions import IsAuthenticated,AllowAny,IsAdminUser
+
+def index(request):
+    print(request.headers)
+    return HttpResponse("Hello API !!")
 
 class  usertype(APIView):
     permission_classes = [IsAuthenticated,AllowAny]
