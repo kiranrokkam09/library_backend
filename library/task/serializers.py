@@ -5,10 +5,18 @@ from django.contrib.auth.models import User
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model=Book
-        fields='__all__'
+        fields=['id','user','name','description','author','status']
+
+    def create(self, validated_data):
+        # Set the default user as admin if user is not provided
+        user = validated_data.get('user', self.context['request'].user)
+        validated_data['user'] = user
+
+        return super().create(validated_data)
 
 class UserSerializer(serializers.ModelSerializer):
-    id=serializers.PrimaryKeyRelatedField(read_only=True)
+    password = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    id=serializers.IntegerField(read_only=True)
     class Meta:
         model=User
         fields=['id','username','password','email']

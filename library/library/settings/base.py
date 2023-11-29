@@ -1,3 +1,4 @@
+import datetime
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -19,11 +20,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #External Packages
     'rest_framework',
+    'corsheaders',
     #Internal Apps
     'task',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -98,3 +101,14 @@ REST_FRAMEWORK={
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),
+    'ROTATE_REFRESH_TOKENS': True,
+}
+
+
