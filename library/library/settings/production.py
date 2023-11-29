@@ -1,6 +1,6 @@
 from .base import *
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.vercel.app']
 
 DATABASES = {
     'default': {
